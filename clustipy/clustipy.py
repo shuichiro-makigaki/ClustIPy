@@ -3,8 +3,11 @@ from sklearn.cluster import KMeans
 import netaddr
 
 
-def clustering(addresses: [netaddr.IPNetwork], n_clusters: int):
-    ips = np.array([[int(x.ip)] for x in addresses], dtype=np.uint32)
+def clustering(networks: [netaddr.IPNetwork], n_clusters: int):
+    ips = []
+    for n in networks:
+        ips.extend(list(n))
+    ips = np.array([[int(x)] for x in ips], dtype=np.uint32)
     kmeans = KMeans(n_clusters=n_clusters)
     labels = kmeans.fit_predict(ips)
     centroids = np.array(kmeans.cluster_centers_, dtype=np.uint32)[:, 0]

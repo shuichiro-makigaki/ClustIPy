@@ -19,7 +19,7 @@ def main(incsv, nclusters, nocsvheader, nfield):
         if not nocsvheader:
             next(reader)
         for row in reader:
-            networks.append(netaddr.IPNetwork(row[nfield].split('/')[0]))
+            networks.append(netaddr.IPNetwork(row[nfield]))
     result = clustipy.clustering(networks, nclusters)
     for r in result:
         print(r)
