@@ -21,4 +21,5 @@ def clustering(addresses: [netaddr.IPNetwork], n_clusters: int):
             if len([x for x in members if x in sp]) == len(members):
                 result[l].append(sp)
         result[l].reverse()
-    return [x[0] for x in result]
+    result = [x[0] for x in result]
+    return sorted(result)
