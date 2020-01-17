@@ -8,3 +8,9 @@ IPv4 address clustering
 $ pip3 install -r requirements.txt --user
 $ python3 cli.py --help
 ```
+
+## Test
+
+```
+pytest -v --cov . --pep8
+```

@@ -1,23 +1,23 @@
 from pathlib import Path
-import csv
 
 from unittest import TestCase
-import netaddr
+from netaddr import IPAddress
 
-from clustipy import clustipy
+import ClustIPy
 
 
-class TestClustipy(TestCase):
+class TestClustIPy(TestCase):
     def setUp(self):
-        self.networks = []
-        with Path('tests/test_address.csv').open() as f:
-            reader = csv.reader(f)
-            next(reader)
-            for row in reader:
-                self.networks.append(netaddr.IPNetwork(row[0].split('/')[0]))
+        self.ipaddr = [IPAddress(_) for _ in Path('tests/test_address').read_text().splitlines()]
 
-    def test_main(self):
-        result = clustipy.clustering(self.networks, 25)
-        self.assertEqual(len(result), 25)
-        for n in self.networks:
-            self.assertIn(True, [n in c for c in result])
+    def test_agglomerative(self):
+        result = ClustIPy.agglomerative(self.ipaddr, 20)
+        self.assertLessEqual(len(result), 20)
+        for a in self.ipaddr:
+            self.assertGreater(len([_ for _ in result if a in _]), 0)
+
+    def test_kmeans(self):
+        result = ClustIPy.kmeans(self.ipaddr, 20)
+        self.assertLessEqual(len(result), 20)
+        for a in self.ipaddr:
+            self.assertGreater(len([_ for _ in result if a in _]), 0)
