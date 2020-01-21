@@ -12,6 +12,6 @@ setup(
     description='Clustering IPs',
     entry_points='''
         [console_scripts]
-        clustipy=ClustIPy.cmd.clustipy:main
+        clustipy=clustipy.cmd.clustipy:main
     ''',
 )

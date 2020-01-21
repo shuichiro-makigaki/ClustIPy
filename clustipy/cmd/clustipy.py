@@ -1,7 +1,7 @@
 from netaddr import IPAddress
 import click
 
-import ClustIPy
+import clustipy
 
 
 @click.command()
@@ -13,9 +13,9 @@ def main(infile, cluster, algorithm):
     ipaddr = [IPAddress(_) for _ in infile.readlines()]
     result = None
     if algorithm == 'agglomerative':
-        result = ClustIPy.agglomerative(ipaddr, cluster)
+        result = clustipy.agglomerative(ipaddr, cluster)
     elif algorithm == 'kmeans':
-        result = ClustIPy.kmeans(ipaddr, cluster)
+        result = clustipy.kmeans(ipaddr, cluster)
 
     for r in result:
         print(r)
